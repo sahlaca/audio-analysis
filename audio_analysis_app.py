@@ -1,10 +1,8 @@
 #Audio Analysis
 
-#Install streamlit library
-#pip install streamlit
-
 #Install libraries/packages
 '''
+pip install streamlit
 pip install pydub
 pip install SpeechRecognition
 pip install happytransformer
@@ -28,6 +26,17 @@ from nltk.tokenize import sent_tokenize
 from nltk.corpus import cmudict
 from textblob import TextBlob
 import math
+
+#Make sure ffmpeg and ffprob are accessible to pydub for converting the audio file
+from pydub.utils import mediainfo
+
+# Specify paths to ffmpeg and ffprobe executables
+ffmpeg_path = r'C:\Users\nuhaf\Downloads\ffmpeg-2024-04-21-git-20206e14d7-full_build\ffmpeg-2024-04-21-git-20206e14d7-full_build\bin\ffmpeg.exe'
+ffprobe_path = r'C:\Users\nuhaf\Downloads\ffmpeg-2024-04-21-git-20206e14d7-full_build\ffmpeg-2024-04-21-git-20206e14d7-full_build\bin\ffprobe.exe'
+
+# Set paths in pydub
+AudioSegment.converter = ffmpeg_path
+mediainfo.FFPROBE_PATH = ffprobe_path
 
 
 # Function to convert audio file to WAV format (adapted for Streamlit)
