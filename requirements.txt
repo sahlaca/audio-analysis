@@ -1,0 +1,8 @@
+pudub
+SpeechRecognition
+happytransformer
+language-tool-python
+textblob
+nltk
+pandas
+numpy
