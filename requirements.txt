@@ -1,4 +1,4 @@
-pudub
+pydub
 SpeechRecognition
 happytransformer
 language-tool-python
