@@ -31,8 +31,11 @@ import math
 from pydub.utils import mediainfo
 
 # Specify paths to ffmpeg and ffprobe executables
-ffmpeg_path = r'C:\Users\nuhaf\Downloads\ffmpeg-2024-04-21-git-20206e14d7-full_build\ffmpeg-2024-04-21-git-20206e14d7-full_build\bin\ffmpeg.exe'
-ffprobe_path = r'C:\Users\nuhaf\Downloads\ffmpeg-2024-04-21-git-20206e14d7-full_build\ffmpeg-2024-04-21-git-20206e14d7-full_build\bin\ffprobe.exe'
+#ffmpeg_path = r'C:\Users\nuhaf\Downloads\ffmpeg-2024-04-21-git-20206e14d7-full_build\ffmpeg-2024-04-21-git-20206e14d7-full_build\bin\ffmpeg.exe'
+#ffprobe_path = r'C:\Users\nuhaf\Downloads\ffmpeg-2024-04-21-git-20206e14d7-full_build\ffmpeg-2024-04-21-git-20206e14d7-full_build\bin\ffprobe.exe'
+
+ffmpeg_path = "C:/Aroha/audio processing/project/final/app/bin/ffmpeg.exe"
+ffprobe_path = "C:/Aroha/audio processing/project/final/app/bin/ffprobe.exe"
 
 # Set paths in pydub
 AudioSegment.converter = ffmpeg_path
