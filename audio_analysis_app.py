@@ -42,7 +42,9 @@ def download_executable(url, filename):
         print(f'Downloaded {filename} successfully!')
     else:
         print(f'Failed to download {filename}. Status code: {response.status_code}')
-        
+
+
+# Function to convert audio file to WAV format (adapted for Streamlit)
 def convert_to_wav(input_file):
     #Ensure ffmpeg and ffprobe are downloaded
     
@@ -68,20 +70,6 @@ def convert_to_wav(input_file):
         st.error(f'Error processing audio file: {e}')
         return None
 
-
-# Function to convert audio file to WAV format (adapted for Streamlit)
-def convert_to_wav(input_file):
-    try:
-        audio_data = input_file.read()  # Read the binary data from the uploaded file
-        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data)) 
-        output_wav = io.BytesIO()
-        audio_segment.export(output_wav, format='wav')
-        st.write(f"Uploaded audio file has been converted to WAV format.")
-        return output_wav
-    except Exception as e:
-        st.error("Failed to convert the audio file to WAV format")
-        st.error(f'Error processing audio file: {e}')
-        return None
 
 # Function to transcribe audio file
 def transcribe_audio(audio_file):
