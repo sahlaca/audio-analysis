@@ -17,6 +17,7 @@ from happytransformer import HappyTextToText, TTSettings
 import pandas as pd
 import numpy as np
 import nltk
+nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from nltk.corpus import cmudict
