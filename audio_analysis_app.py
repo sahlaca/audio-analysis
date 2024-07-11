@@ -46,7 +46,8 @@ def transcribe_audio(audio_file):
     except sr.RequestError as e:
         st.error(f'Could not request results from Google Speech Recognition service; {e}')
         return None
-    
+    except Exception as ex:
+        st.error(f'Error processing audio file: {ex}')
 
 # Function to generate suggested formal texts
 def suggested_texts(original_text):
@@ -306,9 +307,11 @@ def main():
 
     # File upload widget
     uploaded_file = st.file_uploader("Upload an audio file")
-
-    transcript_text = transcribe_audio(uploaded_file)
-        
+    
+    if uploaded_file:
+        #Transcribe the uploaded file
+        transcript_text = transcribe_audio(uploaded_file)
+            
         if transcript_text:
             st.subheader("Transcript from the audio file:")
             st.write(transcript_text)
@@ -319,11 +322,11 @@ def main():
             
             # Display analysis results
             st.subheader('Analysis Results:')
-
+    
             #st.subheader('Suggested Texts:')
             for i, text in enumerate(analysis_result['Suggested Texts']):
                 st.write(f"Suggested Text {i + 1}: {text}")
-
+    
             st.subheader('Suggestions:')
             st.write(f"Grammar: {analysis_result['Grammar Suggestions']}")
             st.write(f"Vocabulary: {analysis_result['Vocabulary Suggestions']}")
@@ -333,7 +336,7 @@ def main():
             
         else:
             st.warning("Failed to transcribe the audio file")
-
+    
 if __name__ == '__main__':
     main()
 
