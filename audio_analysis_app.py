@@ -29,28 +29,6 @@ from nltk.corpus import cmudict
 from textblob import TextBlob
 import math
 
-# Set paths to ffmpeg and ffprobe executables
-ffmpeg_path = "C:/Users/nuhaf/Downloads/ffmpeg-2024-04-21-git-20206e14d7-full_build/ffmpeg-2024-04-21-git-20206e14d7-full_build/bin/ffmpeg.exe"
-ffprobe_path = "C:/Users/nuhaf/Downloads/ffmpeg-2024-04-21-git-20206e14d7-full_build/ffmpeg-2024-04-21-git-20206e14d7-full_build/bin/ffprobe.exe"
-
-# Add ffmpeg and ffprobe paths to the system PATH environment variable
-os.environ["PATH"] += os.pathsep + os.path.dirname(ffmpeg_path)
-os.environ["PATH"] += os.pathsep + os.path.dirname(ffprobe_path)
-
-# Function to convert audio file to WAV format (adapted for Streamlit)
-def convert_to_wav(input_file):
-    try:
-        audio_data = input_file.read()  # Read the binary data from the uploaded file
-        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data)) 
-        output_wav = io.BytesIO()
-        audio_segment.export(output_wav, format='wav')
-        st.write(f"Uploaded audio file has been converted to WAV format.")
-        return output_wav
-    except Exception as e:
-        st.error("Failed to convert the audio file to WAV format")
-        st.error(f'Error processing audio file: {e}')
-        return None
-
 # Function to transcribe audio file
 def transcribe_audio(audio_file):
     recognizer = sr.Recognizer()
