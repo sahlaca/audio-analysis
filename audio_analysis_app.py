@@ -49,8 +49,8 @@ def convert_to_wav(input_file):
     #Ensure ffmpeg and ffprobe are downloaded
     
     # URLs for downloading executables from GitHub Releases
-    ffmpeg_url = 'https://github.com/sahlaca/audio-analysis/releases/download/v1.0.0/ffmpeg.exe'
-    ffprobe_url = 'https://github.com/sahlaca/audio-analysis/releases/download/v1.0.0/ffprobe.exe'
+    ffmpeg_url = 'https://github.com/sahlaca/audio-analysis/blob/main/bin/ffmpeg.exe'
+    ffprobe_url = 'https://github.com/sahlaca/audio-analysis/blob/main/bin/ffprobe.exe'
     
     # Download ffmpeg.exe and ffprobe.exe if not already downloaded
     if not os.path.exists('ffmpeg.exe'):
