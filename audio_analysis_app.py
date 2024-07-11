@@ -5,7 +5,6 @@
 
 #Install libraries/packages
 '''
-pip install pydub
 pip install SpeechRecognition
 pip install happytransformer
 pip install language-tool-python
@@ -14,7 +13,6 @@ pip install textblob
 
 # Import necessary libraries
 import streamlit as st
-from pydub import AudioSegment
 import io
 import os
 import speech_recognition as sr
