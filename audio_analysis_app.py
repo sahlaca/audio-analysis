@@ -307,38 +307,32 @@ def main():
     # File upload widget
     uploaded_file = st.file_uploader("Upload an audio file")
 
-    if uploaded_file:
-        #Convert audio file to wav format
-        wav_file = convert_to_wav(uploaded_file)
+    transcript_text = transcribe_audio(uploaded_file)
         
-        if wav_file:
-            #Transcribe the converted wav file
-            transcript_text = transcribe_audio(wav_file)
+        if transcript_text:
+            st.subheader("Transcript from the audio file:")
+            st.write(transcript_text)
+            st.write("Note: Variation in the transcript can be attributed to the clarity in the speech. If the transcript seems to have a lot of variations, it is suggested to improve the clarity of the speech.")
             
-            if transcript_text:
-                st.subheader("Transcript from the audio file:")
-                st.write(transcript_text)
-                st.write("Note: Variation in the transcript can be attributed to the clarity in the speech. If the transcript seems to have a lot of variations, it is suggested to improve the clarity of the speech.")
-                
-                #Perform analysis
-                analysis_result = analyze_transcription(transcript_text)
-                
-                # Display analysis results
-                st.subheader('Analysis Results:')
+            #Perform analysis
+            analysis_result = analyze_transcription(transcript_text)
+            
+            # Display analysis results
+            st.subheader('Analysis Results:')
 
-                #st.subheader('Suggested Texts:')
-                for i, text in enumerate(analysis_result['Suggested Texts']):
-                    st.write(f"Suggested Text {i + 1}: {text}")
+            #st.subheader('Suggested Texts:')
+            for i, text in enumerate(analysis_result['Suggested Texts']):
+                st.write(f"Suggested Text {i + 1}: {text}")
 
-                st.subheader('Suggestions:')
-                st.write(f"Grammar: {analysis_result['Grammar Suggestions']}")
-                st.write(f"Vocabulary: {analysis_result['Vocabulary Suggestions']}")
-                st.write(f"Pronunciation: {analysis_result['Pronunciation Suggestions']}")
-                st.write(f"Fluency: {analysis_result['Fluency Suggestions']}")
-                st.write(f"Logical Consistency: {analysis_result['Coherence Suggestions']}")
-                
-            else:
-                st.warning("Failed to transcribe the audio file")
+            st.subheader('Suggestions:')
+            st.write(f"Grammar: {analysis_result['Grammar Suggestions']}")
+            st.write(f"Vocabulary: {analysis_result['Vocabulary Suggestions']}")
+            st.write(f"Pronunciation: {analysis_result['Pronunciation Suggestions']}")
+            st.write(f"Fluency: {analysis_result['Fluency Suggestions']}")
+            st.write(f"Logical Consistency: {analysis_result['Coherence Suggestions']}")
+            
+        else:
+            st.warning("Failed to transcribe the audio file")
 
 if __name__ == '__main__':
     main()
