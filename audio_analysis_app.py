@@ -1,13 +1,10 @@
 #Audio Analysis
 
-#Install streamlit library
-#pip install streamlit
-
 #Install libraries/packages
 '''
+pip install streamlit
 pip install SpeechRecognition
 pip install happytransformer
-pip install language-tool-python
 pip install textblob
 '''
 
@@ -19,7 +16,6 @@ import speech_recognition as sr
 from happytransformer import HappyTextToText, TTSettings
 import pandas as pd
 import numpy as np
-from language_tool_python import LanguageTool
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
@@ -103,39 +99,6 @@ def compare_and_suggest(original_text, suggested_text):
     print(f"\nSuggestion: {suggestion}")
 
     return suggestion
-
-# Function to assess grammar and provide suggestions for a given transcription
-def assess_grammar(transcription):
-    # Initialize LanguageTool for grammar checking
-    tool = LanguageTool('en-IN')
-    
-    if pd.isna(transcription):
-        return np.nan, 'No speech detected'
-
-    grammar_matches = [match for match in tool.check(transcription) if match.ruleIssueType == 'grammar' and 'hyphen' not in match.message.lower()]
-    num_errors = len(grammar_matches)
-    #suggestions = ",".join([match.message for match in grammar_matches])
-    suggestions = ",".join([match.message
-                            .replace('‘', "'")
-                            .replace('’', "'")
-                            .replace('“', '"')
-                            .replace('”', '"')
-                            for match in grammar_matches])
-    
-    if num_errors == 0:
-        return 0, None
-    
-    return num_errors, suggestions
-
-
-# Function to score the transcription based on grammar errors
-def score_grammar(transcription):
-    if pd.isna(transcription):
-        return np.nan
-    num_errors, _ = assess_grammar(transcription)
-    tokens = word_tokenize(str(transcription))
-    score = 1 - (num_errors / len(tokens))
-    return score
 
 # Function to calculate TTR (Type-Token Ratio) for a given transcription
 def calculate_ttr(transcription):
@@ -242,14 +205,11 @@ def analyze_transcription(transcription):
     
     if transcription is None:
         return {
-            #'Filename': os.path.basename(input_file),
             'Speech_detected': False,
             'Note': 'No speech detected.',
             'Transcriptions': None,
             'Suggested Texts': [],
-            'Grammar Errors': None,
             'Grammar Suggestions': None,
-            'Grammar Score': None,
             'Vocabulary Score': None,
             'Vocabulary Suggestions': None,
             'Pronunciation Score': None,
@@ -263,31 +223,28 @@ def analyze_transcription(transcription):
     #Generate suggested texts
     suggested_transcripts = suggested_texts(transcription)
     suggestion = compare_and_suggest(transcription, suggested_transcripts[0])
-    
-    #Grammar analysis
-    grammar_errors, grammar_suggestions = assess_grammar(transcription)
-    grammar_score = score_grammar(transcription)
-    
+      
     #Vocabulary analysis
     vocabulary_score, vocabulary_suggestions = calculate_ttr(transcription)
     
     #Pronunciation analysis
     pronunciation = pronunciation_score(transcription)
     pronunciation_suggestion = pronunciation_suggestions(pronunciation)
+    
+    #Fluency analysis
     fluency_score = fluency_analysis(transcription)
     fluency_suggestion = fluency_suggestions(fluency_score)
+    
+    #Coherence analysis
     coherence = coherence_score(transcription)
     coherence_suggestion = coherence_suggestions(coherence)
     
     return {
-        #'Filename': filename,
         'Speech_detected': True,
         'Transcriptions': transcription,
         'Note': " Variation in the transcript can be attributed to the clarity in the speech. If the transcript seems to have a lot of variations, it is suggested to improve the clarity of the speech.",
         'Suggested Texts': suggested_transcripts,
-        'Grammar Errors': grammar_errors,
-        'Grammar Suggestions': suggestion if grammar_suggestions is None else [suggestion, grammar_suggestions],
-        'Grammar Score': grammar_score,
+        'Grammar Suggestions': suggestion,
         'Vocabulary Score': vocabulary_score,
         'Vocabulary Suggestions': vocabulary_suggestions,
         'Pronunciation Score': pronunciation,
