@@ -30,8 +30,8 @@ from textblob import TextBlob
 import math
 
 # Set paths to ffmpeg and ffprobe executables
-ffmpeg_path = "C:/Aroha/audio processing/project/ffmpeg-2024-04-21-git-20206e14d7-full_build/ffmpeg-2024-04-21-git-20206e14d7-full_build/bin/ffmpeg.exe"
-ffprobe_path = "C:/Aroha/audio processing/project/ffmpeg-2024-04-21-git-20206e14d7-full_build/ffmpeg-2024-04-21-git-20206e14d7-full_build/bin/ffprobe.exe"
+ffmpeg_path = "C:/Users/nuhaf/Downloads/ffmpeg-2024-04-21-git-20206e14d7-full_build/ffmpeg-2024-04-21-git-20206e14d7-full_build/bin/ffmpeg.exe"
+ffprobe_path = "C:/Users/nuhaf/Downloads/ffmpeg-2024-04-21-git-20206e14d7-full_build/ffmpeg-2024-04-21-git-20206e14d7-full_build/bin/ffprobe.exe"
 
 # Add ffmpeg and ffprobe paths to the system PATH environment variable
 os.environ["PATH"] += os.pathsep + os.path.dirname(ffmpeg_path)
