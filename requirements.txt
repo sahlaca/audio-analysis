@@ -3,7 +3,6 @@ language_tool_python==2.8
 nltk==3.8.1
 numpy==1.25.2
 pandas==2.2.2
-pydub==0.25.1
 SpeechRecognition==3.10.4
 streamlit==1.35.0
 textblob==0.18.0.post0
